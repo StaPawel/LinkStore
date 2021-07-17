@@ -1,14 +1,13 @@
-//import React from 'react';
-//import React, { useState } from 'react';
 import React, { useEffect, useState } from 'react';
-import EditLink from './Editpopup';
+
 import axios from 'axios';
-import getLinks from './AxiosTest';
+
 
 const Example = (props) => {
 
-    let linksToCatgory = [];
+    let linksToCategory = [];
     const [value, setValue] = React.useState('');
+
     const [valueLink, setValueLink] = React.useState([]);
 
     var config = {
@@ -37,7 +36,7 @@ const Example = (props) => {
       valueLink.forEach(element => {
        
         if (props.categoryId === element.categoryId){
-          linksToCatgory.push(element)
+          linksToCategory.push(element)
         }
       });
 
@@ -47,13 +46,19 @@ const Example = (props) => {
 
       const handleSubmit = event => {
         console.log("event: " + event);
+
+        const inputs = event.target.getElementsByTagName('input');
+        
+        
+
         console.log("value: " + value);
        
 
         const linkObject = {
-            linkName: value
+            linkName: inputs.linkName.value,
+            linkUrl: inputs.linkUrl.value
         };
-          console.log("Category id axios: " + linkObject.categoryId)
+          
         axios
             .post(`http://localhost:8080/api/add/${props.categoryId}`, linkObject, {headers: {'Access-Control-Allow-Origin': '*'}})
             .catch(err => {
@@ -120,13 +125,13 @@ const Example = (props) => {
         console.log(valueLink);
         console.log(item);
 
-        const linkObject = {
+        const linkObject3 = {
           linkName: editedLink
       };
 
 
         axios
-            .post(`http://localhost:8080/api/update/${item}`, linkObject, {headers: {'Access-Control-Allow-Origin': '*'}})
+            .post(`http://localhost:8080/api/update/${item}`, linkObject3, {headers: {'Access-Control-Allow-Origin': '*'}})
             .catch(err => {
                 console.log(err)
             })
@@ -137,28 +142,36 @@ const Example = (props) => {
       }
 
       const openLinkInNewTab = item => {
-        window.open(item, '_blank');
+        console.log("openLinkInNewTab() -> " + item);
+
+        window.open(item, 'new_window');
       }
 
 
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <input type="text" value={value} onChange={handleChange}/>
-                <input type="submit" value="Submit" />
+                <input type="text" name="linkName" value={value} onChange={handleChange}/>
+                <input type="text" name="linkUrl"/>
+                
+                <input type="submit" value="Add" />
             </form>
   
-            <ul>
-           
-                {linksToCatgory.map(valLink => 
+            <ul >
+            <div class="link-list">
+                {linksToCategory.map(valLink => 
                     <li key={valLink.id}>
                         {valLink.linkName}
-                        <button onClick={() => openLinkInNewTab()} >Open</button>
-                        <button onClick={() => removeValue(valLink.id)} >Delete</button>
-                        <button onClick={() => editLink(valLink.id)} >Edit</button>
+                        <div class="right-buttons">
+                          <button class="links-buttons" onClick={() => openLinkInNewTab(valLink.linkName)} >Open</button>
+                          <button class="links-buttons" onClick={() => editLink(valLink.id)} >Edit</button>
+                          <button class="links-buttons delete-link-button" onClick={() => removeValue(valLink.id)} >Delete</button>
+                        </div>
+                        
                         
                     </li>
                 )}
+                </div>
             </ul>
 
         

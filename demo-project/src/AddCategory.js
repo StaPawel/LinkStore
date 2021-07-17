@@ -57,8 +57,9 @@ const AddLinkCategory = () => {
                 {valueList.map(valCategory => 
                     <li key={valCategory.id} class="category">
                         {valCategory.categoryName}
-                        <button onClick={() => removeCategory(valCategory.id)}>X</button>
-                        <Example categoryId={valCategory.id} categoryName={valCategory.categoryName}/>
+                        
+                            <button class="right-buttons" onClick={() => removeCategory(valCategory.id)}>X</button>
+                            <Example categoryId={valCategory.id} categoryName={valCategory.categoryName}/>
                     </li>
                 )}
             </ul>

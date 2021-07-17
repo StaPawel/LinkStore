@@ -15,6 +15,9 @@ public class Link {
     @Column (name = "linkNameColumn")
     private String linkName;
 
+    @Column (name = "linkUrl")
+    private String linkUrl;
+
     @Column (name = "categoryId")
     private Long categoryId;
 
@@ -25,10 +28,11 @@ public class Link {
 //        this.linkName = linkName;
 //    }
 
-    public Link(String linkName, Long categoryId) {
+    public Link(String linkName, Long categoryId, String linkUrl) {
         //this.id = id;
         this.linkName = linkName;
         this.categoryId = categoryId;
+        this.linkUrl = linkUrl;
     }
 
     public Long getId() {
@@ -53,6 +57,14 @@ public class Link {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getLinkUrl() {
+        return linkUrl;
+    }
+
+    public void setLinkUrl(String linkUrl) {
+        this.linkUrl = linkUrl;
     }
 
     @Override
