@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
+import AddLinks from './AddLink';
 
 
 const Example = (props) => {
@@ -45,7 +46,9 @@ const Example = (props) => {
       };
 
       const handleSubmit = event => {
-        console.log("event: " + event);
+
+        
+        
 
         const inputs = event.target.getElementsByTagName('input');
         
@@ -147,16 +150,15 @@ const Example = (props) => {
         window.open(item, 'new_window');
       }
 
+      const returnAddLinkComponent = item => {
+        
+        //https://www.youtube.com/watch?v=i8fAO_zyFAM
+      }
+
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="linkName" value={value} onChange={handleChange}/>
-                <input type="text" name="linkUrl"/>
-                
-                <input type="submit" value="Add" />
-            </form>
-  
+        <br/>
             <ul >
             <div class="link-list">
                 {linksToCategory.map(valLink => 
@@ -174,7 +176,7 @@ const Example = (props) => {
                 </div>
             </ul>
 
-        
+         
         </div> 
     );
 };
@@ -182,4 +184,8 @@ const Example = (props) => {
 export default Example;
 
 
-//<EditLink props={index}/>
+// <form onSubmit={handleSubmit}>
+//                 <input type="text" name="linkName" value={value} onChange={handleChange}/>
+//                 <input type="text" name="linkUrl"/>
+//                 <input type="submit" value="Add" />
+//             </form>
