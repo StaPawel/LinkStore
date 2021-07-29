@@ -11,6 +11,7 @@ import axios from 'axios';
 const AddLinkCategory = () => {
     const [valueList, setValueList] = React.useState([]);
     const [value, setValue] = useState(false);
+    let categoryId;
 
     useEffect(() => {
         //axios uruchamia sie jako ostatni w tej funkcji
@@ -57,14 +58,12 @@ const AddLinkCategory = () => {
           setValue(item);
       }
 
+      console.log('CategoryId: ' + categoryId);
+
   return (
         <div>
             <button onClick={() => addNewCategory()} >New category</button>
 
-            <div className="popups">
-                <AddLinks trigger={value} setTrigger={setValue}/>
-            </div>
-            
 
             <ul >
                 {valueList.map(valCategory => 
@@ -72,7 +71,7 @@ const AddLinkCategory = () => {
                         {valCategory.categoryName}
                             <button class="right-buttons" onClick={() => removeCategory(valCategory.id)}>X</button>
                             <br/><br/>
-                            <button onClick={() => showAddLinkPopup(true)}>Add new link</button>
+                            
                             
                             <Example categoryId={valCategory.id} categoryName={valCategory.categoryName}/>
                     </li>

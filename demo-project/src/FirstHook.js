@@ -4,12 +4,14 @@ import axios from 'axios';
 import AddLinks from './AddLink';
 
 
+
 const Example = (props) => {
 
     let linksToCategory = [];
     const [value, setValue] = React.useState('');
 
     const [valueLink, setValueLink] = React.useState([]);
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
 
     var config = {
         headers: {'Access-Control-Allow-Origin': '*'}
@@ -41,57 +43,11 @@ const Example = (props) => {
         }
       });
 
-    const handleChange = event => {
-        setValue(event.target.value); 
-      };
+    // const handleChange = event => {
+    //     setValue(event.target.value); 
+    //   };
 
-      const handleSubmit = event => {
-
-        
-        
-
-        const inputs = event.target.getElementsByTagName('input');
-        
-        
-
-        console.log("value: " + value);
-       
-
-        const linkObject = {
-            linkName: inputs.linkName.value,
-            linkUrl: inputs.linkUrl.value
-        };
-          
-        axios
-            .post(`http://localhost:8080/api/add/${props.categoryId}`, linkObject, {headers: {'Access-Control-Allow-Origin': '*'}})
-            .catch(err => {
-                console.log(err)
-            })
-
-            setValueLink(valueLink.concat(value));
-        
-        console.log("Argument in handleSubmit: " + value);
-        console.log("handleSubmit: " + valueLink);
-        event.preventDefault();
-
-
-        // axios
-        //     .post('http://localhost:8080/api/add'
-        //     ,testLink
-        //     ,{headers: {'Access-Control-Allow-Origin': '*'}})
-        //     .then(res => {
-              
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //     })
-
-        // axios.post("http://localhost:8080/api/add",testLink)
-        //   .then(response => {
-        //     console.log(response.data)
-        //   })
-
-      };
+    
 
       const removeValue = item => {
 
@@ -155,9 +111,17 @@ const Example = (props) => {
         //https://www.youtube.com/watch?v=i8fAO_zyFAM
       }
 
+      const showAddLinkPopup = item => {
+        setIsPopupVisible(item);
+    }
+
 
     return (
         <div>
+        <div className="popups">
+        <button onClick={() => showAddLinkPopup(true)}>Add new link</button>
+                <AddLinks trigger={isPopupVisible} setTrigger={setIsPopupVisible} categoryId={props.categoryId}/>
+            </div>
         <br/>
             <ul >
             <div class="link-list">
